@@ -1,0 +1,64 @@
+Praca-zaliczeniowa-v2
+========================================================
+author: Bartlomiej Warzecha 1K231
+date:  04 styczen 2020
+autosize: true
+transition: rotate
+font-family: 'Arial'
+
+
+Pierwszy Slajd Wczytanie Danych
+========================================================
+
+
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+
+Pierwszy Produkt
+
+Drugi Produkt
+
+Trzeci Produkt
+
+
+Ocena sredniej, medianym(wartosci srodkowej), minimalnej i maksymalnej
+========================================================
+
+Pierwszy Produkt
+
+Srednia
+Mediana 
+Minimalna 
+Maksymalna
+
+Drugi Produkt
+
+Srednia
+Mediana 
+Minimalna 
+Maksymalna
+
+Trzeci Produkt
+
+Srednia
+Mediana 
+Minimalna 
+Maksymalna
+
+Wizualizacja danych pierwszy produkt
+========================================================
+
+
+Wizualizacja danych drugi produkt
+========================================================
+
+
+Wizualizacja danych trzeci produkt
+========================================================
+
+Przetestowania hipotez statystycznych dotycz?cych warto?ci ?redniej, wystarczaj?cej liczno?ci pr?by i testowania normalno?ci rozk?adu.
+========================================================
+
+
+

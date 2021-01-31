@@ -1,0 +1,121 @@
+
+# ---------------------------------------------------------------------------------
+# wczytanie danych
+# ---------------------------------------------------------------------------------
+path<-getwd()
+path<-getwd()
+print(path)
+tab<-read.csv(file=paste0(path,"/CENY.csv"), sep=";",dec=",")
+str(tab)
+tab[,2] <- as.character(tab[,2])
+tab[2,2]<-"MAŁOPOLSKIE"
+tab[,2]
+# names(tab)
+
+# ---------------------------------------------------------------------------------
+# przekształcanie danych
+# ---------------------------------------------------------------------------------
+# powtarzalność dla lat 2017-2019
+woj<-rep(tab[,2],3)
+# powtarzalność dla 12 miesięcy
+woj1<-rep(woj,12) 
+# długość wektora
+length(woj1)
+head(woj1,15)
+
+# oznaczenie roku w jednej zmiennej dla każdego województwa i dla Poski
+rok<-rep(c("2017","2018","2019"),each=3)
+length(rok)
+# powtarzalność dla 12 miesięcy
+rok1<-rep(rok,12)
+# długość wektora
+length(rok1)
+
+# oznaczenie miesięcy;
+mies<-rep(c("sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru"),each=9)
+mon<-factor(mies, levels=c("sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru"), ordered = TRUE)
+
+# ---------------------------------------------------------------------------------
+# zbieranie danych z trzywierszowych kolumn:
+# ---------------------------------------------------------------------------------
+j=0
+kaszajeczmienna <- c(tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(tab[,j+9],tab[,j+10],tab[,j+11])
+j=9
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+j=18
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+j=27
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+j=36
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+j=45
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+j=54
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+j=63
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+j=72
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+j=81
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+j=90
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+j=99
+kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+
+# ---------------------------------------------------------------------------------
+# to samo w petli - zbieranie danych z trzywierszowych kolumn
+# ---------------------------------------------------------------------------------
+# ---- inicjalizacja ----
+j=0
+kaszajeczmienna <- c(tab[,j+3],tab[,j+4],tab[,j+5])
+filetzmorszczuka<-c(tab[,j+6],tab[,j+7],tab[,j+8])
+recznikbawelniany<-c(tab[,j+9],tab[,j+10],tab[,j+11])
+# ---- petla ----
+for(j in seq(9,99,by=9)){
+  kaszajeczmienna <- c(kaszajeczmienna,tab[,j+3],tab[,j+4],tab[,j+5])
+  filetzmorszczuka<-c(filetzmorszczuka,tab[,j+6],tab[,j+7],tab[,j+8])
+  recznikbawelniany<-c(recznikbawelniany,tab[,j+9],tab[,j+10],tab[,j+11])
+}
+
+# ---------------------------------------------------------------------------------
+# zestawienie w data frame
+# ---------------------------------------------------------------------------------
+dane<-data.frame(woj=woj1, rok=rok1, mies=mies, mon=mon,
+                 kaszajeczmienna=kaszajeczmienna,filetzmorszczuka=filetzmorszczuka,recznikbawelniany=recznikbawelniany)
+# ---------------------------------------------------------------------------------
+# weryfikacja poprawności danych:
+dim(dane)
+str(dane)
+View(dane)
+
+# braki danych
+sum(is.na(dane))
+# ---------------------------------------------------------------------------------
+# zapis do pliku
+write.csv(dane,file="dane.csv",row.names = FALSE)
+# ---------------------------------------------------------------------------------

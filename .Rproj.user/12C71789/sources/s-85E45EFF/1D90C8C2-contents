@@ -1,0 +1,6 @@
+
+
+
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')

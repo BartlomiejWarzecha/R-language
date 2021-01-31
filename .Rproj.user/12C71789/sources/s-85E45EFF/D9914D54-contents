@@ -1,0 +1,16 @@
+# ---------------------------------------------------------------------------------
+# wczytanie danych
+# ---------------------------------------------------------------------------------
+path<-getwd()
+
+# Wypisyawnie danych
+
+print(path)
+
+# czytanie danych do tabeli
+
+tab<-read.csv(file=paste0(path,"/CENY.csv"), sep=";",dec=",")
+
+str(tab)
+
+tab[,2]

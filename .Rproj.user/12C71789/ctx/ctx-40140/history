@@ -1,0 +1,512 @@
+==================================================
+Rostep:
+Rozstep miedzy kwartylny:
+<br><br>
+***
+Wariancja:
+<br><br>
+Odchylenie standardowe:
+<br>
+Wspóczynnik zmiennoci :
+Blad stadardowy sredniej:
+***
+```
+[1] 4.02
+```
+```
+75%
+1.3525
+```
+```
+[1] 1.203536
+```
+```
+[1] 1.097058
+```
+```
+[1] 0.05301076
+```
+```
+[1] 0.1055644
+```
+Wnioski(porawi wartoci liczbowe)
+===================
+średnie zróżnicowanie cen wynosi około 0.72 zl. Czyli typowym obszarem zmienności jest zakres od 19.32-0.72 = 18.6 do 19.32+0.72 = 20.04 zl.
+dla mediany typowym zakresem zmienności jest 19.15-1.52 = 17.63 do 19.15-1.52 = 20.61 zl.
+Jeżeli przyjmiemy, że wybrana próba jest losowa i reprezentuje populację cen recznikow to przyjmując jako przeciętną wartość średnią ( 19.32 ) popełnilibyśmy błąd +- 0.12 zl.
+wartość współczynnika zmienności na poziomie 3.7% mówi o stosunkowo malym zróżnicowaniu danych.
+Wykres (1)
+hist(w,breaks =7,col=rainbow(15), probability = T, main="",ylab="",xlab="")
+rug(w,col="red")
+lines(density(w),lty=2,lwd =3, col="red")
+curve(dnorm(x,mean = mean(w), sd = sd(w)),add=T,col="darkgreen",lty=3,lwd=3)
+plot of chunk unnamed-chunk-7
+Wykres (2)
+boxplot(w,col="red",horizontal = TRUE)
+plot of chunk unnamed-chunk-8
+Wykres (1)
+=========================
+![plot of chunk unnamed-chunk-6](Warzecha_prezentacja-figure/unnamed-chunk-6-1.png)
+Wykres(2)
+========================
+```r
+boxplot(w,col="red",border="darkblue",horizontal = T, ylim = c(18,23) )
+```
+![plot of chunk unnamed-chunk-7](Warzecha_prezentacja-figure/unnamed-chunk-7-1.png)
+Wykres(3)
+========================
+```r
+hist(w, probability = T, col =rainbow(4), ylab="", xlim = c(18,23), main="Ceny reczników")
+rug(w, col="darkgreen")
+lines(density(w),lwd = 3, lty=2, col = "purple")
+curve(dnorm(x, mean=mean(w), sd=sd(w)), add=T, col="darkblue",lwd=3, lty=3)
+```
+![plot of chunk unnamed-chunk-8](Warzecha_prezentacja-figure/unnamed-chunk-8-1.png)
+```r
+boxplot(w,col= "green",border = "blue",horizontal = T, ylim = c(18,23) )
+```
+![plot of chunk unnamed-chunk-8](Warzecha_prezentacja-figure/unnamed-chunk-8-2.png)
+Dodatkowo: 3 wykresy dla ceny kaszy jeczmiennej
+=====================
+![plot of chunk unnamed-chunk-10](Warzecha_prezentacja-figure/unnamed-chunk-10-1.png)
+```r
+boxplot(j,col="red",border="darkblue",horizontal = T, ylim = c(21,27))
+```
+![plot of chunk unnamed-chunk-11](Warzecha_prezentacja-figure/unnamed-chunk-11-1.png)
+```r
+hist(j, probability = T, col =rainbow(4), ylab="", xlim = c(21,27), main="Ceny filetów z morszczuka")
+rug(j, col="darkgreen")
+lines(density(j),lwd = 3, lty=2, col = "purple")
+curve(dnorm(x, mean=mean(j), sd=sd(j)), add=T, col="darkblue",lwd=3, lty=3)
+```
+![plot of chunk unnamed-chunk-12](Warzecha_prezentacja-figure/unnamed-chunk-12-1.png)
+```r
+boxplot(j,col= "green",border = "blue",horizontal = T, ylim = c(2,3) )
+```
+![plot of chunk unnamed-chunk-12](Warzecha_prezentacja-figure/unnamed-chunk-12-2.png)
+library(knitr)
+Prezentacja kończąca zajęcia
+========================================================
+author:
+date:
+autosize: true
+First Slide
+========================================================
+For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
+- Bullet 1
+- Bullet 2
+- Bullet 3
+Slide With Code
+========================================================
+```{r}
+summary(cars)
+```
+Slide With Plot
+========================================================
+```{r, echo=FALSE}
+plot(cars)
+```
+install.packages("rmarkdown")
+library(rmarkdown)
+install.packages(c("backports", "codetools", "digest", "jsonlite", "KernSmooth", "magrittr", "nlme", "rlang", "rprojroot", "tinytex", "xfun"))
+Prezentacja kończąca zajęcia
+========================================================
+author:
+date:
+autosize: true
+First Slide
+========================================================
+For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
+- Bullet 1
+- Bullet 2
+- Bullet 3
+Slide With Code
+========================================================
+```{r}
+summary(cars)
+```
+Slide With Plot
+========================================================
+```{r, echo=FALSE}
+plot(cars)
+```
+dane<-read.csv(file="dane.csv", head = T)
+w<-dane$recznikibawelniane
+mean(w)
+quantile(w)
+```{r}
+summary(cars)
+```{r, echo=FALSE}
+dane<-read.csv(file="CENY.csv", head = T)
+w<-dane$recznikibawelniane
+mean(w)
+quantile(w)
+```{r, echo=FALSE}
+dane<-read.csv(file="CENY.csv", head = T)
+w<-dane$maslo
+mean(w)
+quantile(w)
+dane<-read.csv(file="CENY.csv", head = T)
+w<-dane$maslo
+mean(w)
+quantile(w)
+```{r}
+summary(cars)
+---
+title: "Untitled"
+output: ioslides_presentation
+---
+Prezentacja kończąca zajęcia
+========================================================
+author: Bartlomiej Warzecha
+date:  23 grudnia 2020
+autosize: true
+transition:rotate
+font-family: 'Arial'
+```r
+hist(w, probability = T, col =rainbow(4), ylab="", xlim = c(18,23), main="Ceny reczników")
+rug(w, col="darkgreen")
+lines(density(w),lwd = 3, lty=2, col = "purple")
+curve(dnorm(x, mean=mean(w), sd=sd(w)), add=T, col="darkblue",lwd=3, lty=3)
+```
+Projekt Warzecha Bartlomiej
+========================================================
+author: Bartlomiej Warzecha
+date: 25 pazdziernika 2020
+autosize: true
+transition:rotate
+font-family: 'Arial'
+Wykorzystanie Filtrów
+========================================================
+- Wiecej informacji na stronie: <br>
+<https://support.rstudio.com/hc/en-us/articles/200486468>
+<br>
+[Pomoc](https://support.rstudio.com/hc/en-us/articles/200486468)
+-Cytowanie:
+>Zwyczajowo pliki w których łączy się kod R i markdown oznaczane są rozszerzeniem .Rmd
+- Wyróżnienia: <br>
+Kursywa: *italic*, <i>italic</i> <br>
+Pogrubienie: **bold**, <b>bold</b>
+- Punktory:
+- Punktor 1
+- Punktor 2
+- Punktor 3
+Tekst
+========================================================
+- Czysty tekst
+1.Przy każdym **zapisie** widok prezentacji jest <b>odświeżany</b>.
+2.Jest możliwość zwijania i rozwijania kodu każdego slajdu przy znaku    === lub ===
+3.Strzałkami na górze możliwe jest szybkie przechodzenie pomiędzy       slajdami.
+4.Przycisk edycji alt pozwala szybko przejść do kodu wybranego   slajdu.
+5.link do strony:<br>
+[wszib](https://www.wszib.edu.pl)
+6.Wstawianie obrazóW: <br/>
+![](rlogo.png)
+Kolumny
+========================================================
+left:60%
+Kolumna 1
+```
+Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+4.000   4.000   6.000   6.188   8.000   8.000
+```
+***
+Kolumna 2
+```r
+summary(mtcars$mpg)
+```
+Wykresy
+========================================================
+![plot of chunk unnamed-chunk-3](Warzecha_prezentacja-figure/unnamed-chunk-3-1.png)
+Wczytanie danych
+=====================================================
+```
+[1] 20.695
+```
+```
+0%     25%     50%     75%    100%
+18.4500 20.0800 21.2450 21.4325 22.4700
+```
+Wnioski: <br>
+Przecita cena rcznika bawenainego w tym okresiew wynosia 20.70 z
+Minimalna cenat to 18.45 a maksymalna to 22.47
+Ponieważ mediana wynosi 21.25 to poowa cen z tego okresu jest poniżej tej wartosc(mniejsza lub równa)
+Miary rozrzutu
+==================================================
+Rostep:
+Rozstep miedzy kwartylny:
+<br><br>
+***
+Wariancja:
+<br><br>
+Odchylenie standardowe:
+<br>
+Wspóczynnik zmiennoci :
+Blad stadardowy sredniej:
+***
+```
+[1] 4.02
+```
+```
+75%
+1.3525
+```
+```
+[1] 1.203536
+```
+```
+[1] 1.097058
+```
+```
+[1] 0.05301076
+```
+```
+[1] 0.1055644
+```
+Wnioski(porawi wartoci liczbowe)
+===================
+średnie zróżnicowanie cen wynosi około 0.72 zl. Czyli typowym obszarem zmienności jest zakres od 19.32-0.72 = 18.6 do 19.32+0.72 = 20.04 zl.
+dla mediany typowym zakresem zmienności jest 19.15-1.52 = 17.63 do 19.15-1.52 = 20.61 zl.
+Jeżeli przyjmiemy, że wybrana próba jest losowa i reprezentuje populację cen recznikow to przyjmując jako przeciętną wartość średnią ( 19.32 ) popełnilibyśmy błąd +- 0.12 zl.
+wartość współczynnika zmienności na poziomie 3.7% mówi o stosunkowo malym zróżnicowaniu danych.
+Wykres (1)
+hist(w,breaks =7,col=rainbow(15), probability = T, main="",ylab="",xlab="")
+rug(w,col="red")
+lines(density(w),lty=2,lwd =3, col="red")
+curve(dnorm(x,mean = mean(w), sd = sd(w)),add=T,col="darkgreen",lty=3,lwd=3)
+plot of chunk unnamed-chunk-7
+Wykres (2)
+boxplot(w,col="red",horizontal = TRUE)
+plot of chunk unnamed-chunk-8
+Wykres (1)
+=========================
+![plot of chunk unnamed-chunk-6](Warzecha_prezentacja-figure/unnamed-chunk-6-1.png)
+Wykres(2)
+========================
+```r
+boxplot(w,col="red",border="darkblue",horizontal = T, ylim = c(18,23) )
+```
+![plot of chunk unnamed-chunk-7](Warzecha_prezentacja-figure/unnamed-chunk-7-1.png)
+Wykres(3)
+========================
+```r
+hist(w, probability = T, col =rainbow(4), ylab="", xlim = c(18,23), main="Ceny reczników")
+rug(w, col="darkgreen")
+lines(density(w),lwd = 3, lty=2, col = "purple")
+curve(dnorm(x, mean=mean(w), sd=sd(w)), add=T, col="darkblue",lwd=3, lty=3)
+```
+![plot of chunk unnamed-chunk-8](Warzecha_prezentacja-figure/unnamed-chunk-8-1.png)
+```{r}
+```
+```{r}
+```
+```r
+boxplot(w,col= "green",border = "blue",horizontal = T, ylim = c(18,23) )
+```
+![plot of chunk unnamed-chunk-8](Warzecha_prezentacja-figure/unnamed-chunk-8-2.png)
+Dodatkowo: 3 wykresy dla ceny kaszy jeczmiennej
+=====================
+![plot of chunk unnamed-chunk-10](Warzecha_prezentacja-figure/unnamed-chunk-10-1.png)
+```r
+boxplot(j,col="red",border="darkblue",horizontal = T, ylim = c(21,27))
+```
+![plot of chunk unnamed-chunk-11](Warzecha_prezentacja-figure/unnamed-chunk-11-1.png)
+```r
+hist(j, probability = T, col =rainbow(4), ylab="", xlim = c(21,27), main="Ceny filetów z morszczuka")
+rug(j, col="darkgreen")
+lines(density(j),lwd = 3, lty=2, col = "purple")
+curve(dnorm(x, mean=mean(j), sd=sd(j)), add=T, col="darkblue",lwd=3, lty=3)
+```
+![plot of chunk unnamed-chunk-12](Warzecha_prezentacja-figure/unnamed-chunk-12-1.png)
+```r
+boxplot(j,col= "green",border = "blue",horizontal = T, ylim = c(2,3) )
+```
+![plot of chunk unnamed-chunk-12](Warzecha_prezentacja-figure/unnamed-chunk-12-2.png)
+library(knitr)
+library(markdown)
+library(magrittr)
+install.packages("backports")
+4.Przycisk edycji alt pozwala szybko przejść do kodu wybranego   slajdu.
+5.link do strony:<br>
+[wszib](https://www.wszib.edu.pl)
+- Wyróżnienia: <br>
+Kursywa: *italic*, <i>italic</i> <br>
+Pogrubienie: **bold**, <b>bold</b>
+- Punktory:
+install.packages("knitr")
+For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
+- Bullet 1
+- Bullet 2
+- Bullet 3
+mean(w)
+quantile(w)
+```
+install.packages("reshape2")
+install.packages("reshape2")
+install.packages("reshape2")
+path<-getwd()
+print(path)
+dane<-read.csv(file="dane.csv", head = T)
+w<-dane$recznikibawelniane
+dane<-read.csv(file="dane.csv", head = T)
+w<-dane$recznikibawelniane
+dane<-read.csv(file="dane.csv", head = T)
+w<-dane$recznikibawelniane
+mean(w)
+dane<-read.csv(file="dane.csv", head = T)
+w<-dane$recznikibawelniane
+mean(w)
+quantile(w)
+dane<-read.csv(file="dane.csv", head = T)
+w<-dane$recznikibawelniane
+mean(w)
+quantile(w)
+print(dane)
+dane<-read.csv(file="CENY.csv", head = T)
+w<-dane$recznikibawelniane
+print(dane)
+mean(w)
+quantile(w)
+dane<-read.csv(file="CENY.csv", head = T)
+dane<-read.csv(file="dane-projekt.csv", head = T)
+w<-dane$recznikibawelniane
+dane<-read.csv(file="dane-projekt.csv", head = T)
+w<-dane$recznikibawelniane
+library(readr)
+dane_projekt <- read_csv("dane-projekt.csv")
+View(dane_projekt)
+dane <- read.csv(file=paste(path,"//dane-projekt.csv"), sep = “;”, dec = “.”, head = "T")
+print(dane)
+dane-projekt <- read.csv(file=paste(path,"//dane-projekt.csv"), sep = “;”, dec = “.”, head = "T")
+print(dane-projekt)
+dane-projekt <- read.csv(file=paste(path,"//dane-projekt.csv"), sep = “;”, dec = “.”, head = "T")
+print(dane-projekt)
+path<-getwd()
+print(path)
+dane-projekt <- read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “.”)
+path<-getwd()
+print(path)
+dane-projekt <- read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “.”)
+path<-getwd()
+print(path)
+dane-projekt <- read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “.”)
+path<-getwd()
+print(path)
+dane-projekt <- read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “.”)
+path<-getwd()
+print(path)
+dane-projekt <- read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “.”)
+path<-getwd()
+print(path)
+dane-projekt <- read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “.”)
+path<-getwd()
+print(path)
+path<-getwd()
+print(path)
+path<-getwd()
+print(path)
+dane-projekt <- read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “,”)
+path<-getwd()
+print(path)
+dane-projekt <- read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “,”)
+path<-getwd()
+print(path)
+dane-projekt <- read.csv(file=pasteO(path,"/dane-projekt.csv"), sep = “;”, dec = “,”)
+path<-getwd()
+print(path)
+dane-projekt<-read.csv(file=paste(path,"/dane-projekt.csv"), sep = “;”, dec = “,”)
+path<-getwd()
+print(path)
+dane-projekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “,”)
+path<-getwd()
+print(path)
+dane-projekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “,”)
+path<-getwd()
+print(path)
+dane-projekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “,”)
+path<-getwd()
+print(path)
+dane-projekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = “;”, dec = “,”)
+path<-getwd()
+print(path)
+dane-projekt<-read.csv(file=paste0(path,"dane-projekt.csv"), sep = ';', dec = ',')
+path<-getwd()
+print(path)
+dane-projekt<-read.csv(file=paste0(path,"dane-projekt.csv"), sep = ';', dec = ',')
+path<-getwd()
+print(path)
+dane-projekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+path<-getwd()
+print(path)
+dane-projekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+Praca-zaliczeniowa-v2
+========================================================
+author: Bartlomiej Warzecha 1K231
+date:  04 styczen 2020
+autosize: true
+transition: rotate
+font-family: 'Arial'
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+clear
+cl
+clr
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+str(DaneProjekt)
+View(DaneProjekt)
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+str(daneProjekt)
+View(daneProjekt)
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+str(daneProjekt)
+View(daneProjekt)
+dim(daneProjekt)
+library(reshape2)
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+str(daneProjekt)
+View(daneProjekt)
+dim(daneProjekt)
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+str(daneProjekt)
+View(daneProjekt)
+dim(daneProjekt)
+daneProjekt.m<melt(daneProjekt, id.vars = 'Nazwa')
+dim(daneProjekt)
+daneProjekt.m<melt(daneProjekt, id.vars = "Nazwa")
+library(rshape2)
+daneProjekt.m<melt(daneProjekt, id.vars = "Nazwa")
+path<-getwd()
+print(path)
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt.csv"), sep = ';', dec = ',')
+str(daneProjekt)
+View(daneProjekt)
+dim(daneProjekt)
+install.packages("reshape2")
+library(reshape2)
+daneProjekt.m<melt(daneProjekt, id.vars = "Nazwa")

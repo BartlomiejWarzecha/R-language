@@ -1,0 +1,721 @@
+Praca zaliczeniowa
+========================================================
+author: Bartlomiej Warzecha 1K231 nr. albumu: 38723
+date:  04 styczen 2021
+autosize: true
+transition: rotate
+font-import: https://fonts.googleapis.com/css2?family=Old+Standard+TT
+font-family: 'Old Standard TT'
+
+
+Etapy wczytywania danych, edycji wstepnej oraz wybrane obliczenia sa ukryte w pliku .Rpres. Funkcje wyswietlajace dane, pomocne w trakcie edycji zostaly usuniete.
+========================================================
+
+- Dla najlepszego odbioru prezntacji, powiekszenie w przegladarce nalezy ustawic na  90%
+
+```{r echo = FALSE}
+
+path<-getwd()
+
+daneProjekt<-read.csv(file=paste0(path,"/dane-projekt-Bartlomiej-Warzecha-1K231.csv"), sep = ';', dec = ',')
+
+daneProjekt[,2] <- as.character(daneProjekt[,2])
+daneProjekt[2,2]<-"MAŁOPOLSKIE"
+daneProjekt[3,2]<-"SLASKIE"
+
+
+library(reshape2)
+
+daneProjekt.m<-melt(daneProjekt,id.vars="Nazwa")
+
+daneProjekt.m1<-daneProjekt.m[4:327,]
+
+mies<-rep(c("sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru"),each=27)
+produkt<-rep(rep(c("karpswieży","mlekokrowiespożywcze","twarogpoltlusty"),each=9),12)
+rok<-rep(rep(c(2017,2018,2019),each=3),36)
+
+dane.m<-data.frame(daneProjekt.m1$Nazwa,daneProjekt.m1$value,mies=mies,produkt=produkt,rok=rok)
+
+
+
+
+X<-split(dane.m, dane.m$produkt)
+
+dane<-X$karpswieży[,-4]
+
+colnames(dane)<-c("region","karpswieży","mies","rok")
+
+dane$mlekokrowiespożywcze<-X$mlekokrowiespożywcze$daneProjekt.m1.value
+dane$twarogpoltlusty<-X$twarogpoltlusty$daneProjekt.m1.value
+
+
+View(dane)
+
+```
+
+
+Miary tendencji centralnej i rozrzutu(1) Mleko
+========================================================
+
+Pierwszy Produkt Mleko - Malopolskie
+
+```{r}
+mlekokrowiespożywcze<-dane[dane$region=="MAŁOPOLSKIE",5]
+min(mlekokrowiespożywcze) : max(mlekokrowiespożywcze)
+quantile(mlekokrowiespożywcze) 
+median(mlekokrowiespożywcze) 
+```
+
+Miary tendencji centralnej i rozrzutu(2) Mleko
+========================================================
+
+```{r}
+mean(mlekokrowiespożywcze) 
+quantile(mlekokrowiespożywcze)[4] - quantile(mlekokrowiespożywcze)[2] 
+var(mlekokrowiespożywcze) 
+median(mlekokrowiespożywcze) 
+```
+
+Miary tendencji centralnej i rozrzutu(3) Mleko
+========================================================
+
+```{r}
+sd(mlekokrowiespożywcze)
+sd(mlekokrowiespożywcze)/sqrt(length(mlekokrowiespożywcze))
+mad(mlekokrowiespożywcze)
+sd(mlekokrowiespożywcze)/mean(mlekokrowiespożywcze) 
+```
+
+Miary tendencji centralnej i rozrzutu Pierwszy Produkt Podsumowanie
+========================================================
+
+Wnioski: <br/>
+
+ - srednie zróżnicowanie cen wynosi okolo 0.05zl. Czyli typowym obszarem zmiennosci
+  jest zakres od 2.7 - 0.05 = 2.65 do 2.7 + 0.05 = 2.75.
+
+ - dla mediany typowym zakresem zmiennosci jest
+   zakres od 2.69 - 0.0525 = 2.6475 do 2.69 + 0.0525 = 2.7425 
+ 
+ - jezeli przyjmiemy, że wybrana próba jest losowa i reprezentuje populacj cen 
+   mleka ro przyjmujac jako przecietna wartosc srednia(2.7)
+   popenilismy blad +- 0.009.
+ 
+ - wartosc wspolczynnika zmiennosci na poziomie ok. 0.019 mówi o stosunkowo malym
+ zróżnicowaniu danych
+   
+
+Miary tendencji centralnej i rozrzutu Twarog(1)
+========================================================
+
+Drugi Produkt - Twarog  - Slask
+
+```{r}
+twarogpoltlusty<-dane[dane$region=="SLASKIE",6]
+min(twarogpoltlusty) : max(twarogpoltlusty)
+quantile(twarogpoltlusty) 
+median(twarogpoltlusty) 
+```
+
+Miary tendencji centralnej i rozrzutu Twarog(2)
+========================================================
+
+```{r}
+mean(twarogpoltlusty) 
+quantile(twarogpoltlusty)[4] - quantile(twarogpoltlusty)[2] 
+var(twarogpoltlusty) 
+sd(twarogpoltlusty) 
+```
+
+Miary Miary tendencji centralnej i rozrzutu Twarog(3)
+========================================================
+
+```{r}
+sd(twarogpoltlusty)/sqrt(length(twarogpoltlusty))
+mad(twarogpoltlusty) 
+sd(twarogpoltlusty)/mean(twarogpoltlusty)
+```
+
+
+Miary tendencji centralnej i rozrzutu Drugi Produkt Podsumowanie
+========================================================
+
+Wnioski: <br/>
+
+ - srednie zróżnicowanie cen wynosi okolo 0.47zl. Czyli typowym obszarem zmiennosci
+  jest zakres od 14.12 - 0.47 = 13.65 do 14.12 + 0.47 = 14.59.
+
+ - dla mediany typowym zakresem zmiennosci jest
+   zakres od 14.07 - 0.65 = 13.42 do 14.07  + 0.65 = 14.72 
+ 
+ - jezeli przyjmiemy, że wybrana próba jest losowa i reprezentuje populacj cen 
+   twarogu to przyjmujac jako przecietna wartosc srednia(14.18)
+   popenilismy blad +- 0.078.
+ 
+ - wartosc wspolczynnika zmiennosci na poziomie ok. 0.033 mówi o stosunkowo malym
+ zróżnicowaniu danych
+   
+
+Miary tendencji centralnej i rozrzutu karpia(1)
+========================================================
+
+Trzeci Produkt - Karp - Malopolskie
+
+```{r}
+karpswieży<-dane[dane$region=="MAŁOPOLSKIE",2]
+
+min(karpswieży):max(karpswieży)
+
+quantile(karpswieży)
+ 
+median(karpswieży) 
+```
+
+Miary tendencji centralnej i rozrzutu karpia(2)
+========================================================
+```{r}
+mean(karpswieży) 
+
+quantile(karpswieży)[4] - quantile(karpswieży)[2] 
+
+var(karpswieży) 
+
+sd(karpswieży) 
+```
+
+Miary tendencji centralnej i rozrzutu karpia(3)
+========================================================
+
+```{r}
+sd(karpswieży)/sqrt(length(karpswieży)) 
+
+mad(karpswieży) 
+
+sd(karpswieży)/mean(karpswieży) 
+
+```
+
+
+Trzeci Produkt Podsumowanie
+========================================================
+
+Wnioski: <br/>
+ - Obszar zmiennosci wychodzi ujemny,
+ - Zakladam, że ma to zwiazek z najczestszym czasem zakupu Karpia, czyli okresem okolo swiatecznym
+
+ - srednie zróżnicowanie cen wynosi okolo 7.35 zl. Czyli typowym obszarem zmiennosci
+  jest zakres od 5.07 - 7.35 = -2.28 do  5.07 + 7.35 = 12.42.
+
+ - dla mediany typowym zakresem zmiennosci jest
+   zakres od 0 - 13.8  = -13.8 do 0 + 13.8 = 13.8
+ 
+ - jezeli przyjmiemy, że wybrana próba jest losowa i reprezentuje populacje cen 
+   karpia to przyjmujac jako przecietna wartosc srednia(5.07)
+   popenilismy blad +- 1.23.
+ 
+ - wartosc wspolczynnika zmiennosci na poziomie ok. 1.44 mówi o najwyzszym 
+  z wszystkich zróżnicowaniu danych, wciaz stosunkowo malym
+   
+
+Histogram, Gęstość empiryczna, Gęstość teoretyczna mleka spożywczego
+========================================================
+```{r echo=FALSE }
+par(mfrow = c(2,1))
+mlekokrowiespożywcze<-dane[dane$region=="MAŁOPOLSKIE",5]
+hist(mlekokrowiespożywcze, probability = T, col=rainbow(11), ylab="", xlim=c(2.5, 3), main = "Cena mleka")
+rug(mlekokrowiespożywcze,col="red")
+lines(density(mlekokrowiespożywcze),lty=2, lwd =3, col="lightblue")
+curve(dnorm(x, mean = mean(mlekokrowiespożywcze) , sd = sd(mlekokrowiespożywcze)) ,add=T,col="purple",lty=3,lwd=3)
+      
+boxplot(mlekokrowiespożywcze,col="lightblue",horizontal = TRUE)
+par(mfrow = c(1,1))
+```
+
+
+Histogram, Gęstość empiryczna, Gęstość teoretyczna twarogu
+========================================================
+```{r echo=FALSE}
+par(mfrow = c(2,1))
+twarogpoltlusty<-dane[dane$region=="SLASKIE",6]
+hist(twarogpoltlusty, probability = T, col=rainbow(11), ylab="", xlim=c(12.5, 16), main = "Cena twarogu")
+rug(twarogpoltlusty,col="red")
+lines(density(twarogpoltlusty),lty=2, lwd =3, col="purple")
+curve(dnorm(x, mean = mean(twarogpoltlusty) , sd = sd(twarogpoltlusty)) ,add=T,col="lightblue",lty=3,lwd=3)
+
+boxplot(twarogpoltlusty,col="purple",horizontal = TRUE)
+par(mfrow = c(1,1))
+
+```
+
+Histogram, Gęstość empiryczna, Gęstość teoretyczna karpia swieżego
+========================================================
+```{r echo=FALSE}
+par(mfrow = c(2,1))
+karpswieży<-dane[dane$region=="MAŁOPOLSKIE",2]
+hist(karpswieży, probability = T, col=rainbow(11), ylab="", xlim=c(-1, 18), main = "Cena ")
+rug(karpswieży,col="red")
+lines(density(karpswieży),lty=2, lwd =3, col="yellow")
+curve(dnorm(x, mean = mean(karpswieży) , sd = sd(karpswieży)) ,add=T,col="purple",lty=3,lwd=3)
+
+boxplot(karpswieży,col="yellow",horizontal = TRUE)
+par(mfrow = c(1,1))
+```
+ - Duzy slupek w wartosci 0, zalezy od krotkiego sezonu na karpia w ciagu roku
+
+
+Wystarczajaca liczebnosc proby mleko
+========================================================
+```{r echo=FALSE}
+
+mlekokrowiespożywcze<-dane[dane$region=="MAŁOPOLSKIE",5]
+
+dlugosc <- length(mlekokrowiespożywcze)
+srednia <- mean(mlekokrowiespożywcze)
+odchylenie <-  sd(mlekokrowiespożywcze)
+
+```
+```{r}
+d <- 0.25
+
+alfa = 0.5
+
+kwantylRozkladu <- qnorm(1-alfa/2)
+
+(minimalnaLiczebnosc<- (kwantylRozkladu*odchylenie)/d)^2;
+
+```
+```{r}
+ dlugosc
+```
+
+Wystarczajaca liczebnosc proby twarog
+========================================================
+```{r echo=FALSE}
+
+twarogpoltlusty<-dane[dane$region=="SLASKIE",6]
+
+dlugosc <- length(twarogpoltlusty)
+srednia <- mean(twarogpoltlusty)
+odchylenie <-  sd(twarogpoltlusty)
+
+```
+```{r}
+d <- 0.25
+
+alfa = 0.5
+
+kwantylRozkladu <- qnorm(1-alfa/2)
+
+(minimalnaLiczebnosc<- (kwantylRozkladu*odchylenie)/d)^2;
+
+```
+```{r}
+ dlugosc
+```
+
+
+Wystarczajaca liczebnosc proby karp
+========================================================
+```{r echo=FALSE}
+
+karpswieży<-dane[dane$region=="MAŁOPOLSKIE",2]
+
+dlugosc <- length(karpswieży)
+srednia <- mean(karpswieży)
+odchylenie <-  sd(karpswieży)
+
+```
+```{r}
+d <- 0.25
+
+alfa = 0.5
+
+kwantylRozkladu <- qnorm(1-alfa/2)
+
+(minimalnaLiczebnosc<- (kwantylRozkladu*odchylenie)/d)^2;
+
+```
+```{r}
+ dlugosc
+```
+
+Hipoteza Statyczna Wartosci Średniej Mleka
+========================================================
+
+   - Hipoteza 0 - Srednia mleka = 3
+   - Hipoteza alternatywna - Srednia mleka != 3
+   
+```{r echo = FALSE}
+
+mean<-mlekokrowiespożywcze
+
+m0<-3
+alfa<-0.05
+
+
+statystykaTestowa <- (mean(mlekokrowiespożywcze)-m0)/sd(mlekokrowiespożywcze)*sqrt(length(mlekokrowiespożywcze))
+
+wartoscKrytyczna <- qt(1-alfa/2, length(mlekokrowiespożywcze)-1)
+```
+
+```{r}
+
+wartoscKrytyczna
+
+statystykaTestowa
+
+```
+
+- Hipoteza 0 odrzucona |statystykaTestowa| > wartoscKrytyczna
+
+
+Hipoteza Statyczna Wartosci Średniej twarogu
+========================================================
+
+   - Hipoteza 0 - Srednia twarogu = 14.1
+   - Hipoteza alternatywna - Srednia twarogu != 14.1
+   
+```{r echo = FALSE}
+
+mean<-twarogpoltlusty
+
+m0<-14.1
+alfa<-0.05
+
+
+statystykaTestowa <- (mean(twarogpoltlusty)-m0)/sd(twarogpoltlusty)*sqrt(length(twarogpoltlusty))
+
+wartoscKrytyczna <- qt(1-alfa/2, length(twarogpoltlusty)-1)
+```
+
+```{r}
+
+wartoscKrytyczna
+
+statystykaTestowa
+
+```
+
+- Hipoteza 0 przyjeta wartoscKrytyczna > |statystykaTestowa|
+
+Hipoteza Statyczna Wartosci Średniej karpia
+========================================================
+
+   - Hipoteza 0 - Srednia karpia = 7.6
+   - Hipoteza alternatywna - Srednia karpia != 7.6
+   
+```{r echo = FALSE}
+
+mean<-karpswieży
+
+m0<- 7.6
+alfa<-0.05
+
+
+statystykaTestowa <- (mean(karpswieży)-m0)/sd(karpswieży)*sqrt(length(karpswieży))
+
+wartoscKrytyczna <- qt(1-alfa/2, length(karpswieży)-1)
+```
+
+```{r}
+
+wartoscKrytyczna
+
+statystykaTestowa
+
+```
+
+- Hipoteza 0 odrzucona  |statystykaTestowa| > wartoscKrytyczna
+
+
+Testowanie normalnosci rozkladu mleko
+========================================================
+
+   - H0 ceny mleka sa z rozkaldu normalenego
+   - H1 ceny mleka nie sa z rozkladu normalnego
+   
+   - Poziom istotnosci alfa = 0.05
+```{r}
+mlekokrowiespożywcze<-dane[dane$region=="MAŁOPOLSKIE",5]
+
+shapiro.test(mlekokrowiespożywcze)
+```
+   - P-value > alfa -> Nie ma podstaw do odrzucenia H0
+
+Wykres rozkladu cen mleka   
+=======================================================
+```{r echo =FALSE}
+hist(mlekokrowiespożywcze,breaks = 11,col="lightblue",prob=T)
+lines(density(mlekokrowiespożywcze),col="red")
+```
+
+Testowanie normalnosci rozkladu twarogu
+========================================================
+
+   - H0 ceny twarogu sa z rozkaldu normalenego
+   - H1 ceny twarogu nie sa z rozkladu normalnego
+   
+   - Poziom istotnosci alfa = 0.05
+```{r}
+twarogpoltlusty<-dane[dane$region=="SLASKIE",6]
+
+shapiro.test(twarogpoltlusty)
+```
+   - P-value > alfa -> Nie ma podstaw do odrzucenia H0
+
+Wykres rozkladu cen twarogu   
+=======================================================
+```{r echo =FALSE}
+hist(twarogpoltlusty,breaks = 11,col="purple",prob=T)
+lines(density(twarogpoltlusty),col="red")
+```
+
+
+Testowanie normalnosci rozkladu karpia
+========================================================
+
+   - H0 ceny karpia sa z rozkaldu normalenego
+   - H1 ceny karpia nie sa z rozkladu normalnego
+   
+   - Poziom istotnosci alfa = 0.05
+```{r}
+karpswieży<-dane[dane$region=="MAŁOPOLSKIE",2]
+
+shapiro.test(karpswieży)
+```
+   - P-value < alfa -> Hipoteza H0 odrzucona
+ 
+Wykres rozkladu cen karpia   
+=======================================================
+```{r echo =FALSE}
+
+hist(karpswieży,breaks = 11,col="yellow",prob=T)
+lines(density(karpswieży),col="red")
+```
+
+Przetestowania za pomocą analizy wariancji różnic mleka
+========================================================
+```{r  echo = FALSE}
+mlekokrowiespożywczeRegion<-dane$region
+mlekokrowiespożywczeCeny<-dane$mlekokrowiespożywcze
+
+mlekokrowiespożywczeRegion <- as.factor(mlekokrowiespożywczeRegion)
+
+
+```
+
+```{r}
+tapply(mlekokrowiespożywczeCeny, mlekokrowiespożywczeRegion, mean)
+tapply(mlekokrowiespożywczeCeny, mlekokrowiespożywczeRegion, sd)
+
+```
+
+Prezentacja graficzna sredniej mleka
+=========================================================
+```{r echo = FALSE}
+par(mfrow = c(2,1))
+plot.design(mlekokrowiespożywczeCeny ~ mlekokrowiespożywczeRegion, data = dane, col = "lightblue")
+
+boxplot(mlekokrowiespożywczeCeny ~ mlekokrowiespożywczeRegion, col = "lightblue", border = "red")
+
+points(c(1:3),tapply(mlekokrowiespożywczeCeny, mlekokrowiespożywczeRegion, mean),
+ col = "lightblue")
+par(mfrow = c(1,1))
+
+```
+
+Test analizy wariancji mleka w 3 regionach
+=========================================================
+   - H0: Średnie ceny sa równe
+   - H1: Średnie ceny nie sa równe
+
+```{r echo=FALSE}
+
+av <- aov(mlekokrowiespożywczeCeny ~ mlekokrowiespożywczeRegion, data = dane)
+summary(av)
+
+```
+
+
+   - P-Value(0.000276) < alfa(0.05) -> H0 należy odrzuci
+
+
+
+Które srednie mleka sa roznia sie istotnie?(1)
+=========================================================
+
+```{r echo=FALSE}
+TukeyHSD(av)
+```
+
+Które srednie mleka sa roznia sie istotnie?(1)
+=========================================================
+  Regiony:
+   - Polska-Malopolskie sa istotnie rozne p(0.0075111) < alfa(0.05)
+   - Slaskie-Malopolskie sa istotnie rozne p(0.0003100) < alfa(0.05)
+   
+   - Slaskie-POLSKA nie sa istotnie rozne p(0.6068413) > alfa(0.05)
+      - Wiec przy H0 - Srednie sa rowne i H1 - srednie nie sa rowne
+      - H0 nie zostaje odrzucone
+                     
+
+
+Przetestowania za pomocą analizy wariancji różnic twarogu
+========================================================
+```{r echo = FALSE}
+twarogpoltlustyRegion<-dane$region
+twarogpoltlustyCeny<-dane$twarogpoltlusty
+
+twarogpoltlustyRegion <- as.factor(twarogpoltlustyRegion)
+```
+
+```{r}
+tapply(twarogpoltlustyCeny, twarogpoltlustyRegion, mean)
+tapply(twarogpoltlustyCeny, twarogpoltlustyRegion, sd)
+```
+
+```{r echo=FALSE}
+
+av2 <- aov(twarogpoltlustyCeny ~ twarogpoltlustyRegion, data = dane)
+summary(av2)
+
+```
+
+Prezentacja graficzna sredniej twarogu
+=========================================================
+```{r echo = FALSE}
+par(mfrow = c(2,1))
+plot.design(twarogpoltlustyCeny ~ twarogpoltlustyRegion, data = dane, col = "purple")
+
+boxplot(twarogpoltlustyCeny ~ twarogpoltlustyRegion, col = "purple", border = "red")
+
+points(c(1:3),tapply(twarogpoltlustyCeny, twarogpoltlustyRegion, mean),
+ col = "purple")
+par(mfrow = c(1,1))
+
+```
+
+Test analizy wariancji twarogu w 3 regionach
+=========================================================
+   - H0: Średnie ceny sa równe
+   - H1: Średnie ceny nie sa równe
+
+```{r echo=FALSE}
+
+av2 <- aov(twarogpoltlustyCeny ~ twarogpoltlustyRegion, data = dane)
+summary(av2)
+
+```
+
+
+   - P-Value(56.94 <2e-16 ) < alfa(0.05) -> H0 należy odrzuci
+
+Które srednie twarogu sa roznia sie istotnie? 
+=========================================================
+
+```{r echo=FALSE}
+TukeyHSD(av2)
+```
+Które srednie twarogu sa roznia sie istotnie? 
+=========================================================
+  Regiony: 
+  
+   - Slaskie-POLSKA  sa istotnie rozne p(0.000000) < alfa(0.05)
+   - Slaskie-Malopolskie sa istotnie rozne p(0.0003100) < alfa(0.000000)
+   
+   
+   - Polska-Malopolskie nie sa istotnie rozne p(0.977653) > alfa(0.05)
+    - Wiec przy H0 - Srednie sa rowne i H1 - srednie nie sa rowne
+    - H0 nie zostaje odrzucone
+
+
+
+
+Przetestowania za pomocą analizy wariancji różnic karpia
+========================================================
+```{r echo = FALSE}
+karpswieżyRegion<-dane$region
+karpswieżyCeny<-dane$karpswieży
+
+karpswieżyRegion <- as.factor(karpswieżyRegion)
+```
+
+```{r}
+tapply(karpswieżyCeny, karpswieżyRegion, mean)
+tapply(karpswieżyCeny, karpswieżyRegion, sd)
+
+```
+
+Prezentacja graficzna sredniej karpia
+=========================================================
+```{r echo = FALSE}
+par(mfrow = c(2,1))
+plot.design(karpswieżyCeny ~ karpswieżyRegion, data = dane, col = "yellow")
+
+boxplot(karpswieżyCeny ~ karpswieżyRegion, col = "yellow", border = "red")
+
+points(c(1:3),tapply(karpswieżyCeny, karpswieżyRegion, mean),
+ col = "yellow")
+par(mfrow = c(1,1))
+
+```
+
+Test analizy wariancji karpia w 3 regionach
+=========================================================
+   - H0: Średnie ceny sa równe
+   - H1: Średnie ceny nie sa równe
+
+```{r echo=FALSE}
+
+av3 <- aov(karpswieżyCeny ~ karpswieżyRegion, data = dane)
+summary(av3)
+
+```
+
+
+   - P-Value(0.999) > alfa(0.05) -> Hipoteza H0 przyjeta
+
+
+
+Które srednie karpia sa roznia sie istotnie? 
+=========================================================
+
+```{r echo=FALSE}
+TukeyHSD(av3)
+```
+
+Które srednie karpia sa roznia sie istotnie? 
+=========================================================
+  Regiony:
+   - Polska-Malopolskie sa istotnie rozne p(0.9997478) > alfa(0.05)
+   
+   - Slaskie-Malopolskie sa istotnie rozne p(0.9989688) > alfa(0.05)
+   
+   - Slaskie-POLSKA nie sa istotnie rozne p(0.9997364) > alfa(0.05)
+   
+    - Wiec przy H0 - Srednie sa rowne i H1 - srednie nie sa rowne
+    - Srednie we wszystkich regionach pozwalaja na utrzymanie hipotezy H0
+   
+
+Podsumowanie(1)
+=========================================================
+   - Co umożliwia R studio?
+      
+      Dzieki R-Studio i jezykowi R mozemy miedzy innymi analizowac rozne dane na wiele           sposobow. Miary tendencji centralnej oraz rozproszenia, mozna przedstawiac             graficznie oraz tekstowo. Dzieki licznym funckja mozna np. testowac hipotezy          statystyczne, normalnosc rozkladu, robic analize wariancji
+   
+   - Jakie mozliwosci oferuje tworzenie prezntacji w R studio?
+      
+      Prezentacje w R pozwalaja na przejrzyste ulozenie roznych doswiadczen. Dzieki 
+      znacznikom formatowania, graficznym wykresom, oraz duzej ilosci wtyczek,             prezentacje mozna dopasowac do wlasnycyh preferencji. Dodatkowa zaleta jest 
+      intuicyjne przegladanie tresci w przegladarce, od pierwszego uruchomienia.
+  
+  Podsumowanie(2)
+=========================================================
+   - Co udalo mi sie zrobic w tym projekcie?
+   
+      W tym, projekcie porownalem trzy produkty, na podstawie trzech regionów(Malopolska, Slask, Polska) i trzech lat(2017-2019). 
+      Udalo mi sie pobrac oficjalne dane z GUS, odpowiednio je wczytwac i wyodrebnic.
+      Miary Tendencji centralnej przedstawilem tekstowo i graficznie.                      Przeanalizowalem hipotezy statystyczne, sprawdzilem wystarczajaca ilosc proby,        oraz przetestowalem normalnosc rozkladu. Na koniec za pomoca wbudowanych             funkcji,  dokonalem analizy wariancji, dla wszystkich regionów poszczegolnych          produktow.Dowiedziaem sie miedzy innymi, że Twarog w Malopolsce i                    ogolnie w Polsce ma          bardzo podobna srednia cene, oraz ,ze srednie           mleka w malopolsce i na slasku         istotnie sie roznia.
+      
+      
+      

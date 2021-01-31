@@ -1,0 +1,89 @@
+# ---------------------------------------------------------------------------------
+# wczytanie danych
+# ---------------------------------------------------------------------------------
+path<-getwd()
+print(path)
+tab<-read.csv(file=paste0(path,"/CENY.csv"), sep=";",dec=",")
+str(tab)
+View(tab)
+tab[,2] <- as.character(tab[,2])
+tab[2,2]<-"MAŁOPOLSKIE"
+tab[,2]
+names(tab)
+dim(tab)
+
+# ----------------------------------------------------------------------------------
+# przekształcanie danych
+# ----------------------------------------------------------------------------------
+ # dodatkowy pakiet
+install.packages("reshape2")
+library(reshape2)
+
+# podział wedug regionu
+tab.m<-melt(tab,id.vars="Nazwa")
+View(tab.m)
+
+# Usuniecie trzech pierwszych i trzech ostatnich wierszy
+tab.m1<-tab.m[4:327,]
+View(tab.m1)
+
+# -----------------------------------------------------------------------------------
+# tworzenie dodatkowych wektorów
+# -----------------------------------------------------------------------------------
+
+# tworzenie wektorow o dlugosci 324=3*3*3*12 z miesiecy, produktów, roku
+mies<-rep(c("sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru"),each=27)
+produkt<-rep(rep(c("kaszajeczmienna","filetzmorszczuka","recznikbawelniany"),each=9),12)
+rok<-rep(rep(c(2017,2018,2019),each=3),36)
+
+# sprawdzenie dulgosci
+length(rok)
+length(produkt)
+length(mies)
+
+# ------------------------------------------------------------------------------------
+# zestawienie w data frame
+# ------------------------------------------------------------------------------------
+
+ # zestawienie w początkowy data frame
+dane.m<-data.frame(tab.m1$Nazwa,tab.m1$value,mies=mies,produkt=produkt,rok=rok)
+View(dane.m)
+
+# ------------------------------------------------------------------------------------
+# podzial na osobne df wzgledem produktu
+X<-split(dane.m, dane.m$produkt)
+str(X)
+
+# ------------------------------------------------------------------------------------
+# zestawienie w końcowy data frame
+
+dim(X$filetzmorszczuka)
+# wyrzucenie kolumny z nazwa produktu
+
+dane <- X$filetzmorszczuka[,-4]
+# opisanie nazw zbioru danych
+colnames(dane)<-c("region","filetzmorszczuka","mies","rok")
+# dodanie wartosci z innymi produktami
+dane$kaszajeczmienna<-X$kaszajeczmienna$tab.m1.value
+dane$recznikibawelniane<-X$recznikbawelniany$tab.m1.value
+# calosc
+View(dane)
+dim(dane)
+
+# weryfikacja poprawności danych:
+dim(dane)
+str(dane)
+View(dane)
+
+# braki danych
+sum(is.na(dane))
+# -------------------------------------------------------------------------------------
+# zapis do pliku
+write.csv(dane,file="dane.csv",row.names = FALSE)
+# -----
+--------------------------------------------------------------------------------
+  
+w<-dane[dane$region=="MAŁOPOLSKIE",2]
+
+
+  

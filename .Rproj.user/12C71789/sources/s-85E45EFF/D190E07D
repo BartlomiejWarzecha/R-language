@@ -1,0 +1,32 @@
+{
+    "id": "D190E07D",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1610894796529.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "expression": "daneProjekt",
+        "caption": "daneProjekt",
+        "totalObservations": "3",
+        "displayedObservations": "3",
+        "variables": "111",
+        "cacheKey": "AF9A31B2",
+        "object": "daneProjekt",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=daneProjekt&cache_key=AF9A31B2&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 25896131656810601,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1610894796529,
+    "read_only": false,
+    "read_only_alternatives": []
+}
